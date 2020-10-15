@@ -54,7 +54,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read"})
      * @Assert\NotBlank(message="Le prénom est obligatoire")
-     * @Assert\Length(min=3, message="Le prénom doit faire entre et 255 caractère", max=255, message="Le prénom doit faire entre et 255 caractère")
+     * @Assert\Length(min=3, minMessage="Le prénom doit faire entre et 255 caractère", max=255, maxMessage="Le prénom doit faire entre et 255 caractère")
      */
     private $firstName;
 
@@ -62,7 +62,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read"})
      * @Assert\NotBlank(message="Le nom est obligatoire")
-     * @Assert\Length(min=3, message="Le nom doit faire entre et 255 caractère", max=255, message="Le nom doit faire entre et 255 caractère")
+     * @Assert\Length(min=3, minMessage="Le nom doit faire entre et 255 caractère", max=255, maxMessage="Le nom doit faire entre et 255 caractère")
      */
     private $lastName;
 
@@ -190,7 +190,7 @@ class User implements UserInterface
     {
         if (!$this->customers->contains($customer)) {
             $this->customers[] = $customer;
-            $customer->setUsers($this);
+            $customer->setUser($this);
         }
 
         return $this;
@@ -201,8 +201,8 @@ class User implements UserInterface
         if ($this->customers->contains($customer)) {
             $this->customers->removeElement($customer);
             // set the owning side to null (unless already changed)
-            if ($customer->getUsers() === $this) {
-                $customer->setUsers(null);
+            if ($customer->getUser() === $this) {
+                $customer->setUser(null);
             }
         }
 
