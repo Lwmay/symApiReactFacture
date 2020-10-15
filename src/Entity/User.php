@@ -7,12 +7,18 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  * @ApiResource
+ * @UniqueEntity(
+ *     "email", message="Un utilisateur ayant cette adresse mail existe déja."
+ * )
  */
 class User implements UserInterface
 {
@@ -20,11 +26,15 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"customers_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"customers_read"})
+     * @Assert\NotBlank(message="L'email doit être renseigné.")
+     * @Assert\Email(message="Email non valide.")
      */
     private $email;
 
@@ -36,16 +46,23 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Mot de passe obligatoire")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"customers_read"})
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
+     * @Assert\Length(min=3, message="Le prénom doit faire entre et 255 caractère", max=255, message="Le prénom doit faire entre et 255 caractère")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"customers_read"})
+     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\Length(min=3, message="Le nom doit faire entre et 255 caractère", max=255, message="Le nom doit faire entre et 255 caractère")
      */
     private $lastName;
 
