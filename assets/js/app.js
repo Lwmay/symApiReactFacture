@@ -1,21 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import '../styles/app.css';
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import {HashRouter, Switch, Route} from "react-router-dom";
 import CustomersPage from "./pages/CustomersPage";
+import InvoicesPage from "./pages/InvoicesPage";
 
-console.log('Hello Webpack Encore! Edit me in assets/app.js');
+require('../styles/app.css');
 
 const App = () => {
     return (
         <HashRouter>
             <Navbar />
-
             <main className="container pt-5">
                 <Switch>
+                    <Route path="/invoices" component={InvoicesPage} />
                     <Route path="/customers" component={CustomersPage} />
                     <Route path="/" component={HomePage} />
                 </Switch>

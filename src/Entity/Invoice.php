@@ -4,17 +4,18 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\InvoiceRepository;
-use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Repository\InvoiceRepository;
+use App\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=InvoiceRepository::class)
  * @ApiResource(
  *     attributes={
-            "pagination_enabled"=true,
+            "pagination_enabled"=false,
  *          "pagination_items_per_page"=20,
  *          "order": {"sentAt":"desc"}
  *     },
@@ -76,7 +77,7 @@ class Invoice
      * @Groups({"invoices_read"})
      * @return User
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->customer->getUser();
     }
