@@ -15,7 +15,7 @@ class JwtCreatedSubscriber
 
         // enrichir les datas
         $data = $event->getData();  // c'est n tableau
-        $data['firstName'] = $user->getFistName();
+        $data['firstName'] = $user->getFirstName();
         $data['lastName'] = $user->getLastName();
 
         $event->setData($data);

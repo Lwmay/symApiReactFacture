@@ -25,7 +25,7 @@ const InvoicesPage = (props) => {
     // Récupération des invoices auprès de l'API
     const fetchInvoices = async () => {
         try {
-            const data = await InvoicesApi.findAll()
+            const data = await InvoicesApi.findAll();
             setInvoices(data);
         } catch (error) {
             console.log(error.response);
@@ -38,13 +38,13 @@ const InvoicesPage = (props) => {
     }, []);
 
     // Gestion du changement de page
-    const handlePageChange = (page) => setCurrentPage(page);
+    const handlePageChange = page => setCurrentPage(page);
 
     // Gestion de la recherche
     const handleSearch = event => {
         setSearch(event.currentTarget.value);
         setCurrentPage(1);
-    }
+    };
 
     // Gestion de la suppression
     const handleDelete = async id => {
@@ -61,7 +61,7 @@ const InvoicesPage = (props) => {
     };
 
     // Gestion du format de date
-    const formatDate = (str) => moment(str).format('DD/MM/YYYY');
+    const formatDate = str => moment(str).format('DD/MM/YYYY');
 
     // Gestion de la recherche
     const filteredInvoices = invoices.filter(
@@ -83,7 +83,13 @@ const InvoicesPage = (props) => {
         <>
             <h1>Liste des factures</h1>
             <div className="form-group">
-                <input type="text" onChange={handleSearch} value={search} className="form-control" placeholder="Rechercher ..."/>
+                <input
+                    type="text"
+                    onChange={handleSearch}
+                    value={search}
+                    className="form-control"
+                    placeholder="Rechercher ..."
+                />
             </div>
             <table className="table table-hover">
                 <thead>
@@ -112,7 +118,7 @@ const InvoicesPage = (props) => {
                             <td className="text-center">{invoice.amount.toLocaleString()} €</td>
                             <td>
                                 <button className="btn btn-sm btn-primary mr-1">Editer</button>
-                                <button className="btn btn-sm btn-danger" onClick={handleDelete(id)}>Supprimer</button>
+                                <button className="btn btn-sm btn-danger" onClick={() => handleDelete(invoice.id)}>Supprimer</button>
                             </td>
                         </tr>
                     )}
