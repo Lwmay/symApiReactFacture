@@ -73,6 +73,7 @@ const InvoicePage = ({ history, match }) => {
     // Gestion de la soumission du formulaire
     const handleSubmit = async event => {
         event.preventDefault();
+        console.log(editing);
         try {
             if(editing) {
                 await invoicesAPI.update(id, invoice);
@@ -80,7 +81,6 @@ const InvoicePage = ({ history, match }) => {
             } else {
                 await invoicesAPI.create(invoice);
                 toast.success("La facture a bien été enregistrée.");
-                history.replace("/invoices");
             }
 
         } catch ({response}) {

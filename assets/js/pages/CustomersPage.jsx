@@ -26,12 +26,13 @@ const CustomersPage = (props) => {
     // Au chargement du composant, on va chercher les customers
     useEffect(() => {
         fetchCustomers();
-    }, []);
+        }, []
+    );
 
     // Gestion de la suppression d'un customer
     const handleDelete = async (id) => {
         const originalCustomers = [...customers];
-        setCustomers(customers.filter(customer => customer.id != id))
+        setCustomers(customers.filter(customer => customer.id !== id))
 
         try {
             await CustomerAPI.delete(id)
@@ -49,7 +50,7 @@ const CustomersPage = (props) => {
     const handleSearch = event => {
         setSearch(event.currentTarget.value);
         setCurrentPage(1);
-    }
+    };
 
     const itemsPerPage = 10;
 

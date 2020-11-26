@@ -32,6 +32,7 @@ const CustomerPage = ({match, history}) => {
             setCustomer({ firstName, lastName, email, company });
             setLoading(false);
         } catch (error) {
+            console.log(error)
             toast.error("Le client n'a pas pu être chargé.");
             history.replace("/customers");
         }
